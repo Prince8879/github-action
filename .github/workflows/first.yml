@@ -19,7 +19,8 @@ jobs:
         with : 
           node-version: 22
           # cache : npm
-
+      - name : move to application folder
+        run : cd .\my-app\
       - name: install dependencies
         run : npm i
       - name: Build
