@@ -8,7 +8,7 @@ on :
 jobs:
   build :
     name: Test React Application
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: checkout repo
@@ -33,7 +33,7 @@ jobs:
 
   deploy  :
     name: Test React Application
-    run-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: checkout repo
