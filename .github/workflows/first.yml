@@ -9,6 +9,10 @@ jobs:
   build :
     name: Test React Application
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./my-app
+      
 
     steps:
       - name: checkout repo
@@ -19,8 +23,7 @@ jobs:
         with : 
           node-version: 22
           # cache : npm
-      - name : move to application folder
-        run : cd ./my-app/
+
       - name: install dependencies
         run : npm i
       - name: Build
@@ -36,6 +39,9 @@ jobs:
     name: Test React Application
     runs-on: ubuntu-latest
     needs : build 
+    defaults:
+      run : 
+        working-directory: ./my-app
 
     steps:
       - name: checkout repo
