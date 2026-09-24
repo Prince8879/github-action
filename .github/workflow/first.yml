@@ -1,0 +1,59 @@
+name : React CI/CD
+
+#Trigerred Function
+on :
+   push :
+       branches:
+            - main
+jobs:
+  build :
+    name: Test React Application
+    run-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: setup
+        uses: actions/setup-node@v7
+        with : 
+          node-version: 22
+          cache : npm
+
+      - name: install dependencies
+        run : npm ci
+      - name: Build
+        run : npm run build
+
+      - name: upload artiafcts
+        uses : actions/upload/artifact@v4
+        with :
+          name: React build
+          path : build
+
+  deploy  :
+    name: Test React Application
+    run-on: ubuntu-latest
+
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v4
+
+      - name: setup
+        uses: actions/setup-node@v7
+        with : 
+          node-version: 22
+          cache : npm
+
+      - name: install dependencies
+        run : npm ci
+      - name: Build
+        run : npm run build
+      - name: install netlify cli
+        run : npm install -g netlify-cli
+
+      - name: Deploy to netlify 
+        run : netlify deploy --prod --dir=build
+        env :
+            NETLIFY_AUTH_TOKEN : ${{secrets.NETLIFY_AUTH_TOKEN}}
+            NETLIFY_SITE_ID : ${{secrets.NETLIFY_SITE_ID}}
